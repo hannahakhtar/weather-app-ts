@@ -16,10 +16,10 @@ const Home = () => {
      const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         const searchCapitalised = typed.charAt(0).toUpperCase() + typed.slice(1)
-        const response = await axios.get<AxiosResponse>(`https:api.weatherapi.com/v1/current.json?key=be91b606f53f441595f195344212008&q=${searchCapitalised}&aqi=no`)
+        const response = await axios.get<AxiosResponse>(`https:api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${searchCapitalised}&aqi=no`)
         setCityData(response.data)
     }
-    
+
 
     return <>
         <div>
