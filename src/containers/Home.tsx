@@ -1,13 +1,25 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const Home = () => {
 
     const [typed, setTyped] = useState('')
-
-    const handleSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault()
-        console.log(typed)
+    const [cityData, setCityData] = useState<AxiosResponse>()
+    
+    interface AxiosResponse {
+        location: object,
+        current: object
     }
+
+     const handleSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        const searchCapitalised = typed.charAt(0).toUpperCase() + typed.slice(1)
+        const response = await axios.get<AxiosResponse>(`https:api.weatherapi.com/v1/current.json?key=be91b606f53f441595f195344212008&q=${searchCapitalised}&aqi=no`)
+        setCityData(response.data)
+    }
+    
 
     return <>
         <div>
