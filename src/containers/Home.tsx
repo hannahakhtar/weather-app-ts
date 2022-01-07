@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import Button from '../components/Button'
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const Home = () => {
+const Home: React.FC = () => {
 
     const [typed, setTyped] = useState('')
     const [cityData, setCityData] = useState<AxiosResponse>()
@@ -19,6 +21,7 @@ const Home = () => {
         const searchCapitalised = typed.charAt(0).toUpperCase() + typed.slice(1)
         const response = await axios.get<AxiosResponse>(`https:api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${searchCapitalised}&days=5&aqi=no&alerts=no`)
         if (Object.keys(response).length === 0) {
+            console.log('no results')
             // logic to display 'no results' text 
         } else {
             setCityData(response.data)
@@ -33,9 +36,12 @@ const Home = () => {
             <form onSubmit={e => handleSubmit(e)}>
                 <div className="control">
                     <input className="input is-rounded" type="text" onChange={e => setTyped(e.target.value)} />
-                    <button className="button" type="submit">See weather!</button>
+                    <Button className="button" type="submit" buttonText="See weather!" placeholder="Search here.."/>
                 </div>
             </form>
+        </div>
+        <div>
+
         </div>
     </>
 }
