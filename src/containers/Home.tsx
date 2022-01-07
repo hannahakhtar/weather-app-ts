@@ -29,6 +29,7 @@ const Home: React.FC = () => {
     }
 
     const handleSubmit = (e: React.SyntheticEvent) => {
+        setError(false)
         e.preventDefault()
         const searchCapitalised = typed.charAt(0).toUpperCase() + typed.slice(1)
         axios.get<AxiosResponse>(`https:api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${searchCapitalised}&days=5&aqi=no&alerts=no`)
@@ -59,6 +60,9 @@ const Home: React.FC = () => {
         <div className="currentWeather">
             {cityData &&
                 <Card src={cityData.current.condition.icon} alt={cityData.current.condition.text} date={cityData.location.localtime} degreesC={cityData.current.temp_c} degreesF={cityData.current.temp_f} feelsLikeDegreesC={cityData.current.feelslike_c} feelsLikeDegreesF={cityData.current.feelslike_f} />
+            }
+            {error &&
+            <p>No city matching your search. Please try again.</p>
             }
         </div>
         <div className="forecast">
