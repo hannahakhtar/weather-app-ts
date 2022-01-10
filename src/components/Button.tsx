@@ -1,21 +1,17 @@
 import React from "react";
 
 type Props = {
-    buttonText: string,
+    buttonText: string
     type?: "button" | "submit" | "reset",
-    placeholder: string,
-    className: string
+    className: string,
+    onClick?: React.MouseEventHandler
 }
 
-const Button: React.FC<Props> = ({ className, type, placeholder, buttonText }) => {
+const Button: React.FC<Props> = ({ className, type, buttonText, onClick }) => {
 
     return <>
-        <button className={className} type={type} placeholder={placeholder}>{buttonText}</button>
+        <button className={className} type={type} onClick={onClick}>{buttonText}</button>
     </>
 }
 
 export default Button
-
-// https://dev.to/mconner89/passing-props-in-react-using-typescript-20lm
-// https://dev.to/franciscomendes10866/passing-props-to-child-components-in-react-using-typescript-2690
-// https://github.com/typescript-cheatsheets/react#reacttypescript-cheatsheets

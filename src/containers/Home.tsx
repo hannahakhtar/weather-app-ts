@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Button from '../components/Button'
 import Card from '../components/WeatherCard'
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const Home: React.FC = () => {
@@ -10,6 +11,8 @@ const Home: React.FC = () => {
     const [typed, setTyped] = useState('')
     const [error, setError] = useState(false)
     const [cityData, setCityData] = useState<AxiosResponse>()
+    const [showFiveDay, setShowFiveDay] = useState(false)
+    const [fiveDayButtonText, setFiveDayButtonText] = useState("Show 5 day forecast")
 
     interface AxiosResponse {
         location: {
@@ -39,10 +42,19 @@ const Home: React.FC = () => {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                    // if true, display message saying to search again (use error message in error.response.data.message)
                     setError(true)
                 }
             })
+    }
+
+    const handleFiveDayForecastClick = () => {
+        if (showFiveDay) {
+            setFiveDayButtonText("Show five day forecast")
+            setShowFiveDay(false)
+        } else {
+            setFiveDayButtonText("Hide five day forecast")
+            setShowFiveDay(true)
+        }
     }
 
     return <>
@@ -52,8 +64,8 @@ const Home: React.FC = () => {
         <div>
             <form onSubmit={e => handleSubmit(e)}>
                 <div className="control">
-                    <input className="input is-rounded" type="text" onChange={e => setTyped(e.target.value)} />
-                    <Button className="button" type="submit" buttonText="See weather!" placeholder="Search here.." />
+                    <input className="input is-rounded" type="text" placeholder="Search here.." onChange={e => setTyped(e.target.value)} />
+                    <Button className="button" type="submit" buttonText="See weather!" />
                 </div>
             </form>
         </div>
@@ -64,6 +76,9 @@ const Home: React.FC = () => {
             {error &&
             <p>No city matching your search. Please try again.</p>
             }
+        </div>
+        <div>
+            <Button className="button" type="submit" buttonText={fiveDayButtonText} onClick={handleFiveDayForecastClick}/>
         </div>
         <div className="forecast">
 
