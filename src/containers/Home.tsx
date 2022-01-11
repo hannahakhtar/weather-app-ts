@@ -23,8 +23,8 @@ const Home: React.FC = () => {
                 text: string,
                 icon: string
             },
-            temp_c: number,
-            temp_f: number,
+            avgtemp_c: number,
+            avgtemp_f: number,
             feelslike_c: number,
             feelslike_f: number
         }
@@ -83,9 +83,9 @@ const Home: React.FC = () => {
 
     return <>
         <div>
-            <h1>Home</h1>
+            <h1 className="h1">Lovely Weather App</h1>
         </div>
-        <div>
+        <div className="section">
             <form onSubmit={e => handleSubmit(e)}>
                 <div className="control">
                     <input className="input is-rounded" type="text" placeholder="Search here.." onChange={e => setTyped(e.target.value)} />
@@ -93,10 +93,12 @@ const Home: React.FC = () => {
                 </div>
             </form>
         </div>
-        <div className="currentWeather">
-            {cityData &&
-                <Card src={cityData.current.condition.icon} alt={cityData.current.condition.text} name={cityData.location.name} date={cityData.location.localtime} degreesC={cityData.current.temp_c} degreesF={cityData.current.temp_f} feelsLikeDegreesC={cityData.current.feelslike_c} feelsLikeDegreesF={cityData.current.feelslike_f} />
-            }
+        <div className="currentWeather section">
+            <div className="column is-half">
+                {cityData &&
+                    <Card src={cityData.current.condition.icon} alt={cityData.current.condition.text} name={cityData.location.name} date={cityData.location.localtime} degreesC={cityData.current.temp_c} degreesF={cityData.current.temp_f} feelsLikeDegreesC={cityData.current.feelslike_c} feelsLikeDegreesF={cityData.current.feelslike_f} />
+                }
+            </div>
             {cityData &&
                 <Button className="button" type="submit" buttonText={fiveDayButtonText} onClick={handleFiveDayForecastClick} />
             }
@@ -104,13 +106,18 @@ const Home: React.FC = () => {
                 <p>No city matching your search. Please try again.</p>
             }
         </div>
-        {showFiveDay &&
-            <div className="fiveDayForecast">
-                {forecast?.map((day: Forecast) => {
-                    console.log(day)
-                    return null
-                })
-                }
+        {showFiveDay && cityData &&
+            <div className="fiveDayForecast section">
+                <div className="column is-half" >
+                    {forecast?.map((day: Forecast) => {
+                        console.log(day)
+                        return <>
+                            {/* no 'feels like in forecast - investigate further */}
+                            <Card src={day.day.condition.icon} alt={day.day.condition.text} name={cityData.location.name} date={day.date} degreesC={day.day.avgtemp_c} degreesF={day.day.avgtemp_f} feelsLikeDegreesC={day.day.feelslike_c} feelsLikeDegreesF={day.day.feelslike_f} />
+                        </>
+                    })
+                    }
+                </div>
             </div>
         }
     </>
