@@ -32,6 +32,7 @@ const Home: React.FC = () => {
 
     interface AxiosResponse {
         location: {
+            name: string,
             localtime: string
         },
         current: {
@@ -50,6 +51,8 @@ const Home: React.FC = () => {
     }
 
     const handleSubmit = (e: React.SyntheticEvent) => {
+        setShowFiveDay(false)
+        setFiveDayButtonText("Show two day forecast")
         setError(false)
         e.preventDefault()
         const searchCapitalised = typed.charAt(0).toUpperCase() + typed.slice(1)
@@ -92,7 +95,7 @@ const Home: React.FC = () => {
         </div>
         <div className="currentWeather">
             {cityData &&
-                <Card src={cityData.current.condition.icon} alt={cityData.current.condition.text} date={cityData.location.localtime} degreesC={cityData.current.temp_c} degreesF={cityData.current.temp_f} feelsLikeDegreesC={cityData.current.feelslike_c} feelsLikeDegreesF={cityData.current.feelslike_f} />
+                <Card src={cityData.current.condition.icon} alt={cityData.current.condition.text} name={cityData.location.name} date={cityData.location.localtime} degreesC={cityData.current.temp_c} degreesF={cityData.current.temp_f} feelsLikeDegreesC={cityData.current.feelslike_c} feelsLikeDegreesF={cityData.current.feelslike_f} />
             }
             {cityData &&
                 <Button className="button" type="submit" buttonText={fiveDayButtonText} onClick={handleFiveDayForecastClick} />
@@ -103,8 +106,9 @@ const Home: React.FC = () => {
         </div>
         {showFiveDay &&
             <div className="fiveDayForecast">
-                {forecast.map((day: Forecast) => {
+                {forecast?.map((day: Forecast) => {
                     console.log(day)
+                    return null
                 })
                 }
             </div>

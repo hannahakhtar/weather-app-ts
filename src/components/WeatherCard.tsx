@@ -3,6 +3,7 @@ import React from "react";
 type Props = {
     src: string,
     alt: string,
+    name: string,
     date: string,
     degreesC: number,
     degreesF: number,
@@ -10,7 +11,7 @@ type Props = {
     feelsLikeDegreesF: number
 }
 
-const WeatherCard: React.FC<Props> = ({ src, alt, date, degreesC, degreesF, feelsLikeDegreesC, feelsLikeDegreesF }) => {
+const WeatherCard: React.FC<Props> = ({ src, alt, name, date, degreesC, degreesF, feelsLikeDegreesC, feelsLikeDegreesF }) => {
     return <>
         <div className="card">
             <div className="card-image">
@@ -19,6 +20,7 @@ const WeatherCard: React.FC<Props> = ({ src, alt, date, degreesC, degreesF, feel
                 </figure>
             </div>
             <div className="card-content">
+                <p>{name}</p>
                 <p>{date}</p>
                 <p>Temperature: {degreesC} Celsuis / {degreesF} Fahrenheit</p>
                 <p>Feels like: {feelsLikeDegreesC} Celsuis / {feelsLikeDegreesF} Fahrenheit</p>
