@@ -1,17 +1,24 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import Home from './containers/Home'
-
 import './App.scss'
+import Home from './containers/Home'
+import Search from './containers/Search'
+import { UserContext, username } from "./context/UserContext";
 
 export default function App() {
+
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/weather-app-ts" element={<Home/>} />
-        </Routes>
+        
+          <UserContext.Provider value={username}>
+          <Routes>
+            <Route path="/weather-app-ts" element={<Home />} />
+            <Route path="/weather-app-ts/search" element={<Search />} />
+            </Routes>
+          </UserContext.Provider>
+        
+
       </BrowserRouter>
     </>
   )
