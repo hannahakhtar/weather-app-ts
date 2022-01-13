@@ -10,8 +10,9 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 const Search: React.FC = () => {
 
+    
     const user = useContext(UserContext)
-
+    // const [username, setUsername] = useState
     const [typed, setTyped] = useState('')
     const [error, setError] = useState(false)
     const [cityData, setCityData] = useState<AxiosResponse>()
