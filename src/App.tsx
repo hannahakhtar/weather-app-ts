@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.scss'
 import Home from './containers/Home'
 import Search from './containers/Search'
-import { UserContext, username, UserProvider } from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 export default function App() {
   // second option would be to use useContext.provider and then add the state here.

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { UserContext, defaultValue } from "../context/UserContext"
+import { UserContext } from "../context/UserContext"
 import Button from '../components/Button'
 
 const Home = () => {

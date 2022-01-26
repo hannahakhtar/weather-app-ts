@@ -18,7 +18,6 @@ export const UserProvider: React.FC = ({ children }) => {
           {children}
         </UserContext.Provider>
       );
-
 }
 
 export const UserContext = createContext<UserContextType>(defaultValue);
